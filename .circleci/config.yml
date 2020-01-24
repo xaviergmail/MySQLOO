@@ -14,15 +14,18 @@ jobs:
             wget -O premake.tar.gz "https://github.com/premake/premake-core/releases/download/v5.0.0-alpha14/premake-5.0.0-alpha14-linux.tar.gz"
             tar xvzf premake.tar.gz
             ./premake5 --os=linux --file=BuildProjects.lua gmake
-            cd solutions/linux-gmake
 
       - run:
           name: "Build x86"
-          command: make
+          command: |
+            cd solutions/linux-gmake
+            make
 
       - run:
           name: "Build x86_64"
-          command: make config=release_x86_64
+          command: |
+            cd solutions/linux-gmake
+            make config=release_x86_64
 
       - store_artifacts:
-          path: ../../out/linux
+          path: ./out/linux
